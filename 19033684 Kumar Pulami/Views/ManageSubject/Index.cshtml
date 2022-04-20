@@ -1,0 +1,61 @@
+﻿@model _19033684_Kumar_Pulami.Models.ViewModel.Subject.SubjectIndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+<div class="row mt-5">
+    <div class="col search-content d-flex justify-content-center align-content-center">
+        <form asp-action="Index" method = "post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <h4 class="bold"> Search Section</h4>
+            <hr/>
+            <div class="">
+                <div class="form-group form-check-inline">
+                    <label asp-for="SearchValue" class="control-label"></label>
+                    <input asp-for="SearchValue" class="form-control" required/>
+                    <span asp-validation-for="SearchValue" class="text-danger"></span>
+                </div>               
+                <div class="form-group py-3">
+                    <input type="submit" value="Search" class="btn btn-dark" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="row pt-3"> 
+    <div class = "d-flex table-content">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Subject ID</th>
+                    <th>Subject Name</th>
+                    <th style="text-align: center;">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model.SubjectList) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubjectID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubjectName)
+                        </td>
+                        <td style="text-align: center;">
+                            @Html.ActionLink("Edit", "Edit", new { item.SubjectID }, htmlAttributes: new {@class = "btn btn-success"})
+                            @Html.ActionLink("Details", "Details", new { item.SubjectID }, htmlAttributes: new {@class = "btn btn-primary"})
+                            @Html.ActionLink("Delete", "Delete", new { item.SubjectID }, htmlAttributes: new {@class = "btn btn-danger"})
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

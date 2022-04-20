@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Luniva Tech</title>
+        <!---Font Awesome Icon CSS Import--->
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.0.0/css/all.css">
+        <link rel="icon" href="~/Assets/Images/lunivalogo.png">
+        <!---Custom CSS Import--->
+        <link href="~/css/MainLayout.css" rel="stylesheet" />
+    
+        <!---Bootstrap CSS Import--->
+         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+         <link rel="stylesheet" href="~/css/site.css" /> 
+
+    </head>
+
+    <body>
+        <div class="menu_bar">
+            <header>
+                <div class="company_details">
+                    <div>
+                        <img class="logo" src="~/Assets/Images/lunivalogo.png" alt="">
+                    </div>
+                    <div>
+                        <span class="logo_name">LunivaTech</span>
+                    </div>
+                </div>
+
+                <i class="fa-regular fa-chevron-right toogle"></i>
+            </header>
+
+            <div class="divider">
+
+            </div>
+            <ul class="menu">
+                <li>
+                    <div class="menu_links">
+                        <a asp-controller="Dashboard" asp-action="Index">
+                            <i class="fa-regular fa-house-chimney"></i>
+                            <span class="menu_name">Dashboard</span>
+                        </a>
+                    </div>
+
+                    <ul class="sub_menu">
+                        <li><a class="menu_name" asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <div class="menu_links">
+                        <a href="#">
+                            <i class="fa-regular fa-user-graduate"></i>
+                            <span class="menu_name">Student&#160;</span>
+                        </a>
+                        <i class="fa-regular fa-chevron-down arrow"></i>
+                    </div>
+                    <ul class="sub_menu">
+                        <li><a class="menu_name" href="#">Student</a></li>
+                        <li><a asp-controller="Admission" asp-action="AdmissionForm">Admission</a></li>
+                        <li><a asp-controller="ManageStudent" asp-action="Index">Manage</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <div class="menu_links">
+                        <a href="#">
+                            <i class="fa-regular fa-user-tie"></i>
+                            <span class="menu_name">Teacher</span>
+                        </a>
+                        <i class="fa-regular fa-chevron-down arrow"></i>
+                    </div>
+                    <ul class="sub_menu">
+                        <li><a class="menu_name" href="#">Teacher</a></li>
+                        <li><a asp-controller="TeacherEntry" asp-action="Entry">Entry</a></li>
+                        <li><a asp-controller="ManageTeacher" asp-action="Index">Manage</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <div class="menu_links">
+                        <a href="#">
+                            <i class="fa-regular fa-file"></i>
+                            <span class="menu_name">Exam&#160;&#160;&#160;&#160;&#160;</span>
+                        </a>
+                        <i class="fa-regular fa-chevron-down arrow"></i>
+                    </div>
+                    <ul class="sub_menu">
+                        <li><a class="menu_name" href="#">Exam</a></li>
+                        <li><a asp-controller="MarksEntry" asp-action="Index">Marks Entry</a></li>
+                        <li><a asp-controller="Marksheet" asp-action="Index">Marksheet</a></li>
+                        <li><a asp-controller="Result" asp-action="Index">Result</a></li>
+                       
+                    </ul>
+                </li>
+
+
+                <li>
+                    <div class="menu_links">
+                        <a href="#">
+                            <i class="fa-regular fa-book-blank"></i>
+                            <span class="menu_name">Subject&#160;</span>
+                        </a>
+                        <i class="fa-regular fa-chevron-down arrow"></i>
+                    </div>
+                    <ul class="sub_menu">
+                        <li><a class="menu_name" href="#">Subject</a></li>
+                        <li><a asp-controller="SubjectEntry" asp-action="SubjectEntry">Entry</a></li>
+                        <li><a asp-controller="ManageSubject" asp-action="Index">Manage</a></li>                       
+                    </ul>
+                </li>
+
+
+
+                <li>
+                    <div class="menu_links">
+                        <a href="#">
+                            <i class="fa-regular fa-arrow-right-from-bracket"></i>
+                            <span class="menu_name">Logout</span>
+                        </a>
+                    </div>
+                    <ul class="sub_menu">
+                        <li><a class="menu_name" href="#">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!--Body Section-->
+        <div class="rendering_section">
+            <div class="title-content">
+                <h1>@ViewBag.TitleName</h1>            
+            </div>
+
+            <div class="body-content">
+                <div class="container">
+                    @if(TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible mt-3">
+                            <strong>Success!</strong> @TempData["SuccessMessage"]
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>                            
+                        </div>
+                    }
+                    @if(TempData["Error"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible mt-3">
+                            <strong>Error!</strong> @TempData["Error"]
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>                            
+                        </div>
+                    }
+                    @RenderBody()
+                </div>
+                               
+            </div>
+        </div>
+        
+
+
+        <!--Custom JQuery Import-->
+        <script src="~/js/MainLayout.js"></script>
+
+        <!--Bootstrap JQuery Import-->
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @RenderSection("scripts", false)
+    </body>
+</html>

@@ -1,0 +1,138 @@
+﻿@model _19033684_Kumar_Pulami.Models.ViewModel.Student.Manage_Student.StudentDetailsViewModel
+
+@{
+    ViewBag.TitleName = "Student Details";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<br>
+<div class="row">            
+<h4>Student Information</h4>
+    <hr/>
+    <div class="col d-flex justify-content-center">
+        <div class="col form-group form-check-inline">
+            <label asp-for="StudentID" class="control-label"></label>
+            <input asp-for="StudentID" class="form-control" readonly="readonly"/>
+            <span asp-validation-for="StudentID" class="text-danger"></span>
+        </div>
+        <br>
+        <div class="col form-group form-check-inline">
+            <label asp-for="StudentName" class="control-label"></label>
+            <input asp-for="StudentName" class="form-control" readonly="readonly"/>
+            <span asp-validation-for="StudentName" class="text-danger"></span>
+        </div>
+        <br>
+    </div>            
+</div>
+<br>
+
+<div class="row">
+    <div class="col d-flex justify-content-between">
+        <div class="col form-group form-check-inline">
+            <label asp-for="DOB" class="control-label"></label>
+            <input asp-for="DOB" class="form-control" readonly="readonly"/>
+            <span asp-validation-for="DOB" class="text-danger"></span>
+        </div>
+        <br>
+        <div class="col form-group form-check-inline">
+            <label asp-for="Gender" class="control-label"></label>
+            <input asp-for="Gender" class="form-control" readonly="readonly"/>
+            <span asp-validation-for="Gender" class="text-danger"></span>
+        </div>
+    </div>
+</div>
+<br/>
+<div class="row">
+    <div class="col d-flex justify-content-between">
+        <div class="col form-group form-check-inline">
+            <label asp-for="Batch" class="control-label"></label>
+            <input asp-for="Batch" class="form-control" readonly="readonly"/>
+            <span asp-validation-for="Batch" class="text-danger"></span>
+        </div>
+        <br>
+        <div class="col form-group form-check-inline">
+            <label asp-for="Grade" class="control-label"></label>
+            <input asp-for="Grade" class="form-control" readonly="readonly"/>
+            <span asp-validation-for="Grade" class="text-danger"></span>
+        </div>
+        <br>
+        <div class="col form-group form-check-inline">
+            <label asp-for="Section" class="control-label"></label>
+            <input asp-for="Section" class="form-control" readonly="readonly"/>
+            <span asp-validation-for="Section" class="text-danger"></span>
+        </div>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col d-flex justify-content-between">
+        <div class="col form-group form-check-inline">
+            <label asp-for="FatherName" class="control-label"></label>
+            <input asp-for="FatherName" class="form-control" readonly="readonly"/>
+            <span asp-validation-for="FatherName" class="text-danger"></span>
+        </div>
+        <br>
+        <div class="col form-group form-check-inline">
+            <label asp-for="MotherName" class="control-label"></label>
+            <input asp-for="MotherName" class="form-control" readonly="readonly"/>
+            <span asp-validation-for="MotherName" class="text-danger"></span>
+        </div>
+    </div>
+</div>
+<br/>
+        
+<div class="row">
+    <div class="col d-flex justify-content-between">
+        <div class="col form-group form-check-inline">
+            <label asp-for="PermamentAddress" class="control-label"></label>
+            <input asp-for="PermamentAddress" class="form-control" readonly="readonly"/>
+            <span asp-validation-for="PermamentAddress" class="text-danger"></span>
+        </div>
+        <br>
+        <div class="col form-group form-check-inline">
+            <label asp-for="TemporaryAddress" class="control-label"></label>
+            <input asp-for="TemporaryAddress" class="form-control" readonly="readonly"/>
+            <span asp-validation-for="TemporaryAddress" class="text-danger"></span>
+        </div>
+    </div>
+</div>
+<br/>
+
+<div class="row">
+    <div class="form-group">
+        <label asp-for="GuardianContact" class="control-label"></label>
+        <input asp-for="GuardianContact" class="form-control" readonly="readonly"/>
+        <span asp-validation-for="GuardianContact" class="text-danger"></span>
+    </div>           
+</div>
+<br>
+<div class="row">               
+    <h4>Previous School Information</h4>
+    <hr/>
+        <div class="col d-flex justify-content-between">
+            <div class="col form-group form-check-inline">
+                <label asp-for="PreviousSchoolName" class="control-label"></label>
+                <input asp-for="PreviousSchoolName" class="form-control" readonly="readonly"/>
+                <span asp-validation-for="PreviousSchoolName" class="text-danger"></span>
+            </div>
+            <div class="col form-group form-check-inline">
+                <label asp-for="PrevioiusSchoolGrade" class="control-label"></label>
+                <input asp-for="PrevioiusSchoolGrade" class="form-control" readonly="readonly"/>
+                <span asp-validation-for="PrevioiusSchoolGrade" class="text-danger"></span>
+            </div>
+        </div>
+</div>
+
+<div class="row form-group">
+    <div class="col">                
+        <br>            
+        @Html.ActionLink("Back To Index", "Index", "ManageStudent", htmlAttributes: new {@class = "btn btn-primary"})
+        <br>
+        <br>
+    </div>
+</div>       
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

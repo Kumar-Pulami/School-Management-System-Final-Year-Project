@@ -1,0 +1,135 @@
+﻿@using _19033684_Kumar_Pulami.Models.ViewModel.Exam.Result
+@model _19033684_Kumar_Pulami.Models.ViewModel.Exam.Result.ResultStudentMarksDetailIndexViewModel
+
+@{
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+<div class="row mt-5">
+    <div class="col search-content d-flex justify-content-center align-content-center">
+        <form asp-action="Index" method = "post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <h4 class="bold"> Search Section</h4>
+            <hr/>
+            <div class="">
+                <div class="form-group form-check-inline">
+                    <label asp-for="Batch" class="control-label"></label>
+                    @Html.DropDownListFor(model => model.Batch, new SelectList(ViewBag.BatchList), "Select Batch", htmlAttributes: new {@class = "form-control"})
+                </div>
+
+                <div class="form-group form-check-inline">
+                    <label asp-for="Grade" class="control-label"></label>
+                    @Html.DropDownListFor(model => model.Grade, new SelectList(ViewBag.GradeList), htmlAttributes: new {@class = "form-control"})
+                </div>
+
+                <div class="form-group form-check-inline">
+                    <label asp-for="Terminal" class="control-label"></label>
+                    @Html.DropDownListFor(model => model.Terminal, new SelectList(ViewBag.TerminalList, "TerminalID", "TerminalName"), htmlAttributes: new {@class = "form-control"})
+                </div>
+                <div class="d-block pt-3">
+                    <span asp-validation-for="Batch" class="text-danger d-block"></span>
+                    <span asp-validation-for="Grade" class="text-danger d-block"></span>
+                    <span asp-validation-for="Terminal" class="text-danger d-block"></span>
+                </div>
+                <div class="form-group py-3">
+                    <input type="submit" value="Generate Result" class="btn btn-dark" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@if (Model.StudentResultList != null)
+{
+    <br>
+    <hr/>
+    <div class="col px-2 py-2" style="outline: thick solid #000000">
+        <div class="row justify-content-between">
+            <div class="col pt-3 pl-5">
+                <img style="width: 80px; height: 80px; margin-left: 20px;" src="~/Assets/Images/school_logo.png">
+            </div>
+            <div class="col">
+                <div class="row d-flex justify-content-center align-content-center">                
+                    <h3 style="text-align: center; font-weight: bold;">The Spirit High School</h3>
+                </div>
+                <div class="row d-flex d-block justify-content-center align-content-center">
+                    <p style="text-align: center">
+                        Buddhanilkantha-10, Kathmandu<br>
+                        +977-01-4810055
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col"></div>
+        </div>
+
+
+        <div class="row">
+            <div class="col d-flex justify-content-center align-content-center">
+                <p style="font-size: large; font-weight: bold">
+                    @Html.ValueFor(model => model.TerminalName) Terminal Exam - 
+                    @Html.ValueFor(model => model.Batch)
+                </p>                
+            </div>            
+        </div>
+
+        <div class = "d-flex table-content">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Student Name</th> 
+                        @foreach (var subjectNames in Model.SubjectNames)
+                        {
+                            <th>
+                                @Html.DisplayFor(modelItem => subjectNames.SubjectName)
+                            </th>  
+                        }
+                        <th>Total Mark</th>
+                        <th>Obtained Mark</th>
+                        <th>GPA</th>
+                        <th>Percentage</th>
+                        <th>Rank</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>           
+                <tbody>
+                @foreach (var item in Model.StudentResultList) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudentName)
+                        </td>
+                        @foreach (var marks in item.SubjectMarks)
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => marks.SubjectMark)
+                            </td>  
+                        }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotalMarks)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotalObtainedMarks)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GPA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Percentage)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Rank)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Result)
+                        </td>
+                    </tr>
+                }
+                </tbody>                      
+            </table>
+        </div>
+    </div>
+}
+
+@section scripts{
+   <script src="~/js/Result.js" asp-append-version="true"></script>
+   @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

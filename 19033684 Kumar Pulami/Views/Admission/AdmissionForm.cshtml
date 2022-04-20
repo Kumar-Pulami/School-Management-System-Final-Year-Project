@@ -1,0 +1,183 @@
+﻿@model _19033684_Kumar_Pulami.Models.ViewModel.Student.AdmissionView
+
+@{
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+    <form asp-action="AdmissionForm" method = "post"> 
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div> 
+        <div class="row">
+            <div class="col">
+                <br>
+                <br>
+                <h4>Student Information</h4>
+                <hr/>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <br>
+            </div>
+        </div>
+
+
+            <div class="row">
+                <div class="col d-flex justify-content-between">
+                    <div class="col form-group form-check-inline">
+                        <label asp-for="BOD" class="control-label"></label>
+                        <input asp-for="BOD" class="form-control" />
+                        <span asp-validation-for="BOD" class="text-danger"></span>
+                    </div>
+                    <br>
+                    <div class="col form-group form-check-inline">
+                        <label asp-for="Gender" class="control-label"></label>
+                        <input asp-for="Gender" class="form-control" />
+                        <span asp-validation-for="Gender" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col d-flex justify-content-between">
+                    <div class="col form-group form-check-inline">
+                        <label asp-for="Batch" class="control-label"></label>
+                        <input asp-for="Batch" class="form-control" />
+                        <span asp-validation-for="Batch" class="text-danger"></span>
+                    </div>
+                    <br>
+                    <div class="col form-group form-check-inline">
+                        <label asp-for="Grade" class="control-label"></label>
+                        <input asp-for="Grade" class="form-control" />
+                        <span asp-validation-for="Grade" class="text-danger"></span>
+                    </div>
+                    <br>
+                    <div class="col form-group form-check-inline">
+                        <label asp-for="Section" class="control-label"></label>
+                        <input asp-for="Section" class="form-control" />
+                        <span asp-validation-for="Section" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col d-flex justify-content-between">
+                    <div class="col form-group form-check-inline">
+                        <label asp-for="FatherName" class="control-label"></label>
+                        <input asp-for="FatherName" class="form-control" />
+                        <span asp-validation-for="FatherName" class="text-danger"></span>
+                    </div>
+                    <br>
+                    <div class="col form-group form-check-inline">
+                        <label asp-for="MotherName" class="control-label"></label>
+                        <input asp-for="MotherName" class="form-control" />
+                        <span asp-validation-for="MotherName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+            <div class="form-group">
+                <label asp-for="GuardianContact" class="control-label"></label>
+                <input asp-for="GuardianContact" class="form-control" />
+                <span asp-validation-for="GuardianContact" class="text-danger"></span>
+            </div>           
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <br/>
+                <br/>
+                <h4>Permament Address</h4>
+                <hr/>
+                <div class="form-group">
+                    <label asp-for="PermamentProvince" class="control-label"></label>
+                    <input asp-for="PermamentProvince" class="form-control" />
+                    <span asp-validation-for="PermamentProvince" class="text-danger"></span>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <label asp-for="PermamentDistrict" class="control-label"></label>
+                    <input asp-for="PermamentDistrict" class="form-control" />
+                    <span asp-validation-for="PermamentDistrict" class="text-danger"></span>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <label asp-for="PermamentCity" class="control-label"></label>
+                    <input asp-for="PermamentCity" class="form-control" />
+                    <span asp-validation-for="PermamentCity" class="text-danger"></span>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <label asp-for="PermamentWard" class="control-label"></label>
+                    <input asp-for="PermamentWard" class="form-control" />
+                    <span asp-validation-for="PermamentWard" class="text-danger"></span>
+                </div>
+            </div>
+       
+
+            <div class="col justify-content-between">
+                <br/>
+                <br/>
+                <h4>Temporary Address</h4>
+                <hr/>
+                <div class="form-group">
+                    <label asp-for="TemporaryProvince" class="control-label"></label>
+                    <input asp-for="TemporaryProvince" class="form-control" />
+                    <span asp-validation-for="TemporaryProvince" class="text-danger"></span>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <label asp-for="TemporaryDistrict" class="control-label"></label>
+                    <input asp-for="TemporaryDistrict" class="form-control" />
+                    <span asp-validation-for="TemporaryDistrict" class="text-danger"></span>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <label asp-for="TemporaryCity" class="control-label"></label>
+                    <input asp-for="TemporaryCity" class="form-control" />
+                    <span asp-validation-for="TemporaryCity" class="text-danger"></span>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <label asp-for="TemporaryWard" class="control-label"></label>
+                    <input asp-for="TemporaryWard" class="form-control" />
+                    <span asp-validation-for="TemporaryWard" class="text-danger"></span>
+                </div>
+
+                <br/>
+                <br/>
+            </div>
+
+        </div>
+        <div class="row">               
+            <h4>Previous School Information</h4>
+            <hr/>
+            <div class="col d-flex justify-content-between">
+                <div class="col form-group form-check-inline">
+                    <label asp-for="PreviousSchool" class="control-label"></label>
+                    <input asp-for="PreviousSchool" class="form-control" />
+                    <span asp-validation-for="PreviousSchool" class="text-danger"></span>
+                </div>
+                <div class="col form-group form-check-inline">
+                    <label asp-for="PreviousSchoolGrade" class="control-label"></label>
+                    <input asp-for="PreviousSchoolGrade" class="form-control" />
+                    <span asp-validation-for="PreviousSchoolGrade" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col">
+                <br>
+                <br>
+                <input type="submit" value="Admit Student" class="btn btn-success" />
+                <br>
+                <br>
+            </div>
+        </div>       
+    </form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

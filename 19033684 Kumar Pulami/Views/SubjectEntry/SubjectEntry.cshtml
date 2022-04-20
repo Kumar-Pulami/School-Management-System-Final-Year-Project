@@ -1,0 +1,41 @@
+﻿@model _19033684_Kumar_Pulami.Models.ViewModel.SubjectViewModel
+
+@{
+    ViewData["Title"] = "SubjectEntry";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<br>
+<br>
+<h3>Register Subject</h3>
+<hr/>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SubjectEntry" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SubjectID" class="control-label"></label>
+                <input asp-for="SubjectID" class="form-control" />
+                <span asp-validation-for="SubjectID" class="text-danger"></span>
+            </div>
+            <br>
+            <div class="form-group">
+                <label asp-for="SubjectName" class="control-label"></label>
+                <input asp-for="SubjectName" class="form-control" />
+                <span asp-validation-for="SubjectName" class="text-danger"></span>
+            </div>
+            <div class="row form-group">
+                <div class="col">
+                    <br>
+                    <br>
+                    <input type="submit" value="Register Subject" class="btn btn-success" />
+                    <br>
+                    <br>
+                </div>
+            </div> 
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

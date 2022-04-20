@@ -1,0 +1,243 @@
+﻿@model _19033684_Kumar_Pulami.Models.ViewModel.Exam.MarksheetViewModel
+
+@{
+    ViewData["Title"] = "Student Marksheet";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<div class="row mt-5">
+    <div class="col search-content d-flex justify-content-center align-content-center">
+        <form asp-action="Marksheet" method = "post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <h4 class="font-weight-bolder"> Search Section</h4>
+            <hr/>
+            <div class="">
+                <input hidden asp-for="StudentID" class="form-control form-check-inline" />            
+                <div class="form-group form-check-inline">                
+                    <label asp-for="Terminal" class="control-label font-weight-bold"></label>
+                    @Html.DropDownListFor(model => model.Terminal, new SelectList (Model.TerminalList, "TerminalID", "TerminalName"), htmlAttributes: new { @class = "form-control"})
+                    <span asp-validation-for="Terminal" class="text-danger"></span>
+                </div>
+                <div class="form-group py-3">
+                    <input type="submit" value="Generate" class="btn btn-dark" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+       
+<br>
+
+@if (Model.SubjectMarks != null)
+{
+    <hr/>
+    <div class="col px-2 py-2" style="outline: thick solid #000000">
+        <div class="row justify-content-between">
+            <div class="col pt-3 pl-5">
+                <img style="width: 80px; height: 80px; margin-left: 20px;" src="~/Assets/Images/school_logo.png">
+            </div>
+            <div class="col">
+                <div class="row d-flex justify-content-center align-content-center">                
+                    <h3 style="text-align: center; font-weight: bold;">The Spirit High School</h3>
+                </div>
+                <div class="row d-flex d-block justify-content-center align-content-center">
+                    <p style="text-align: center">
+                        Buddhanilkantha-10, Kathmandu<br>
+                        +977-01-4810055
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col"></div>
+        </div>
+
+
+        <div class="row">
+            <div class="col d-flex justify-content-center align-content-center">
+                <p style="font-size: large; font-weight: bold">
+                    @TempData["TerminalName"] Terminal Exam - 
+                    @Html.ValueFor(model => model.Batch)
+                </p>                
+            </div>            
+        </div>
+
+        <div class="row pt-3 px-4">
+            <div class="col d-inline-flex justify-content-between">
+                <div>                    
+                    <strong>Student Name:&nbsp; &nbsp;</strong>@Html.ValueFor(model => model.StudentName)
+                </div>
+            </div>
+            
+            <div class="col d-inline-flex">
+                <div>
+                    <span style="text-align: end;">
+                        <strong>Student ID:&nbsp;</strong> @Html.ValueFor(model => model.StudentID)
+                    </span>                    
+                </div>
+            </div>
+        </div>
+
+        <div class="row pt-2 px-4">
+            <div class="col justify-content-between">
+                <div class="justify-content-end">                    
+                    <strong>Grade:&nbsp; &nbsp;</strong>@Html.ValueFor(model => model.Grade)
+                </div>
+            </div>
+            
+            <div class="col d-inline-flex">
+                <div>
+                    <span style="text-align: center;">
+                        <strong>Section:&nbsp;</strong> @Html.ValueFor(model => model.Section)
+                    </span>                    
+                </div>
+            </div>
+        </div>
+
+        <div class="row pt-2 px-4">
+            <div class="col d-inline-flex justify-content-between">
+                <div>                    
+                    <strong>Father Name:&nbsp; &nbsp;</strong>@Html.ValueFor(model => model.FatherName)
+                </div>
+            </div>
+            
+            <div class="col d-inline-flex">
+                <div>
+                    <span>
+                        <strong>Date of Birth:&nbsp;</strong> @Html.DisplayFor(model => model.DOB)
+                    </span>                    
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row pt-4 px-4">
+            <div class="col">
+                <div class = "d-flex table-content">
+                    <table class="table table-responsive table-bordered ">
+                        <thead>
+                            <tr>
+                                <th>Subject ID</th>
+                                <th>Subject Name</th>
+                                <th>Total Mark</th>
+                                <th>Pass Mark</th>
+                                <th>Obtained Mark</th>
+                                <th>Grade</th>
+                                <th>Grade Point</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>           
+                        <tbody>
+                        
+                        @foreach (var item in Model.SubjectMarks) {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SubjectID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SubjectName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalMark)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PassMark)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ObtainedMark)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Grade)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.GradePoint)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Remarks)
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td colspan="2" style="text-align: end">Total:</td>
+                            <td>
+                                @Html.DisplayFor(model => model.TotalMarks)
+                            </td>
+                            <td>
+                                    @{
+                                        float? totalPassmarks = 0F;
+                                        foreach (var item in Model.SubjectMarks)
+                                        {
+                                            totalPassmarks = totalPassmarks + item.PassMark;
+                                        }                                        
+                                    }
+                                    @Html.Raw(totalPassmarks.ToString())
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.TotalObtainedMarks)
+                            </td>
+                                <td> @{
+                                        float? GPA = Model.GPA;
+                                        String grade = null;
+                                        if (GPA >= 3.6)
+                                        {
+                                            grade = "A+";
+                                        }
+                                        else if (GPA >= 3.2 && GPA < 3.6)
+                                        {
+                                            grade = "A";
+                                        }else if (GPA >= 2.8 && GPA < 3.2)
+                                        {
+                                            grade = "B+";
+                                        }else if (GPA >= 2.4 && GPA < 2.8)
+                                        {
+                                            grade = "B";
+                                        }else if (GPA >= 2.0 && GPA < 2.4)
+                                        {
+                                            grade = "C+";
+                                        }else if (GPA >= 1.6 && GPA < 2.0)
+                                        {
+                                            grade = "C";
+                                        }else if (GPA >= 1.2 && GPA < 1.6)
+                                        {
+                                            grade = "D+";
+                                        }else if (GPA >= 0.8 && GPA < 1.2)
+                                        {
+                                            grade = "D";
+                                        }else 
+                                        {
+                                            grade = "E";
+                                        }
+                                    }
+                                @Html.Raw(grade)
+                            </td>
+                            <td colspan="2">@Html.ValueFor(model => model.GPA)</td>
+                        </tbody>                      
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row pt-2 px-4">
+            <div class="col d-inline-flex justify-content-between">
+                <div>                    
+                    <strong>GPA:&nbsp; &nbsp;</strong>@Html.ValueFor(model => model.GPA)
+                </div>
+            </div>          
+        </div>
+
+
+        <div class="row pt-2 px-4">
+            <div class="col d-inline-flex justify-content-between">
+                <div>                    
+                    <strong>Percentage:&nbsp; &nbsp;</strong>@Html.ValueFor(model => model.Precentage) %
+                </div>
+            </div>           
+        </div>
+        <br>
+    </div>
+    <br>
+    <br>
+}
+
+
+

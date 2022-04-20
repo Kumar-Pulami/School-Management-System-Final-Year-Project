@@ -1,0 +1,73 @@
+﻿@model _19033684_Kumar_Pulami.Models.ViewModel.Teacher.Manage.TeacherIndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<div class="row pt-3">
+    <div class="col search-content d-flex justify-content-center align-content-center">
+        <form asp-action="Index" method = "post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <h4 class="pt-3"> Search Section</h4>
+            <hr/>
+            <div class="">
+                <div class="form-group form-check-inline">
+                    <label asp-for="SearchTeacherName" class="control-label"></label>
+                    <input asp-for="SearchTeacherName" class="form-control" required/>
+                    <span asp-validation-for="SearchTeacherName" class="text-danger"></span>
+                </div>               
+                <div class="form-group py-3">
+                    <input type="submit" value="Search" class="btn btn-dark" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="row pt-3">
+<h4>Teacher Information</h4>
+<hr/>
+    <div class = "d-flex table-content">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Teacher ID</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Contact Number</th>
+                    <th>Hire Date</th> 
+                    <th>Actions</th> 
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model.TeacherTable) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TeacherID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TeacherName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Contact)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HireDate)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { item.TeacherID }, htmlAttributes: new {@class = "btn btn-success"})
+                            @Html.ActionLink("Details", "Details", new { item.TeacherID }, htmlAttributes: new {@class = "btn btn-primary"})
+                            @Html.ActionLink("Delete", "Delete", new { item.TeacherID }, htmlAttributes: new {@class = "btn btn-danger"})
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,168 @@
+﻿@model _19033684_Kumar_Pulami.Models.ViewModel.Teacher.Manage.ManageTeacherEditViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+    <form asp-action="Edit" method = "post"> 
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <br>
+        <br>
+        <div class="row">     
+            <br>
+            <br>
+            <h4>Teacher Information</h4>
+            <hr/>
+            <div class="col d-flex justify-content-center">
+                <br>
+                <br>
+                <div class="col form-group form-check-inline">
+                    <label asp-for="TeacherID" class="control-label"></label>
+                    <input asp-for="TeacherID" class="form-control" readonly="readonly"/>
+                    <span asp-validation-for="TeacherID" class="text-danger"></span>
+                </div>
+                <br>
+                <div class="col form-group form-check-inline">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <br>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <br>
+                <div class="col form-group form-check-inline">
+                    <label asp-for="DOB" class="control-label"></label>
+                    <input asp-for="DOB" class="form-control" />
+                    <span asp-validation-for="DOB" class="text-danger"></span>
+                </div>
+                <br>
+                <div class="col form-group form-check-inline">
+                    <label asp-for="HireDate" class="control-label"></label>
+                    <input asp-for="HireDate" class="form-control" />
+                    <span asp-validation-for="HireDate" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col d-flex justify-content-between">
+                <div class="col form-group form-check-inline">
+                    <label asp-for="Gender" class="control-label"></label>
+                    <input asp-for="Gender" class="form-control" />
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+                <br>
+                <div class="col form-group form-check-inline">
+                    <label asp-for="Contact" class="control-label"></label>
+                    <input asp-for="Contact" class="form-control" />
+                    <span asp-validation-for="Contact" class="text-danger"></span>
+                </div>
+                <br>
+                <div class="col form-group form-check-inline">
+                    <label asp-for="Salary" class="control-label"></label>
+                    <input asp-for="Salary" class="form-control" />
+                    <span asp-validation-for="Salary" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col d-flex justify-content-between">
+                <div class="col form-group form-check-inline">
+                    <label asp-for="FatherName" class="control-label"></label>
+                    <input asp-for="FatherName" class="form-control" />
+                    <span asp-validation-for="FatherName" class="text-danger"></span>
+                </div>
+                <br>
+                <div class="col form-group form-check-inline">
+                    <label asp-for="MotherName" class="control-label"></label>
+                    <input asp-for="MotherName" class="form-control" />
+                    <span asp-validation-for="MotherName" class="text-danger"></span>
+                </div>
+            </div>
+        </div>       
+
+        <div class="row">
+            <div class="col">
+                <br/>
+                <br/>
+                <h4>Permament Address</h4>
+                <hr/>
+                <div class="form-group">
+                    <label asp-for="PermamentProvince" class="control-label"></label>
+                    <input asp-for="PermamentProvince" class="form-control" />
+                    <span asp-validation-for="PermamentProvince" class="text-danger"></span>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <label asp-for="PermamentDistrict" class="control-label"></label>
+                    <input asp-for="PermamentDistrict" class="form-control" />
+                    <span asp-validation-for="PermamentDistrict" class="text-danger"></span>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <label asp-for="PermamentCity" class="control-label"></label>
+                    <input asp-for="PermamentCity" class="form-control" />
+                    <span asp-validation-for="PermamentCity" class="text-danger"></span>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <label asp-for="PermamentWard" class="control-label"></label>
+                    <input asp-for="PermamentWard" class="form-control" />
+                    <span asp-validation-for="PermamentWard" class="text-danger"></span>
+                </div>
+            </div>
+       
+
+            <div class="col justify-content-between">
+                <br/>
+                <br/>
+                <h4>Temporary Address</h4>
+                <hr/>
+                <div class="form-group">
+                    <label asp-for="TemporaryProvince" class="control-label"></label>
+                    <input asp-for="TemporaryProvince" class="form-control" />
+                    <span asp-validation-for="TemporaryProvince" class="text-danger"></span>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <label asp-for="TemporaryDistrict" class="control-label"></label>
+                    <input asp-for="TemporaryDistrict" class="form-control" />
+                    <span asp-validation-for="TemporaryDistrict" class="text-danger"></span>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <label asp-for="TemporaryCity" class="control-label"></label>
+                    <input asp-for="TemporaryCity" class="form-control" />
+                    <span asp-validation-for="TemporaryCity" class="text-danger"></span>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <label asp-for="TemporaryWard" class="control-label"></label>
+                    <input asp-for="TemporaryWard" class="form-control" />
+                    <span asp-validation-for="TemporaryWard" class="text-danger"></span>
+                </div>             
+            </div>
+
+        </div>
+        <div class="row form-group">
+            <div class="col">
+                <br>
+                <br>
+                <input type="submit" value="Update" class="btn btn-success" />                
+                @Html.ActionLink("Back To Index", "Index", "ManageTeacher", htmlAttributes: new {@class = "btn btn-primary"})
+                <br>
+                <br>
+            </div>
+        </div>       
+    </form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
