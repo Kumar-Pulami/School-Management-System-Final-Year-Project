@@ -38,7 +38,7 @@
                 <li>
                     <div class="menu_links">
                         <a asp-controller="Dashboard" asp-action="Index">
-                            <i class="fa-regular fa-house-chimney"></i>
+                            <i class="fa-thin fa-house-chimney"></i>
                             <span class="menu_name">Dashboard</span>
                         </a>
                     </div>
@@ -51,8 +51,8 @@
                 <li>
                     <div class="menu_links">
                         <a href="#">
-                            <i class="fa-regular fa-user-graduate"></i>
-                            <span class="menu_name">Student&#160;</span>
+                            <i class="fa-thin fa-user-graduate"></i>
+                            <span class="menu_name">Student&#160;&#160;</span>
                         </a>
                         <i class="fa-regular fa-chevron-down arrow"></i>
                     </div>
@@ -66,8 +66,8 @@
                 <li>
                     <div class="menu_links">
                         <a href="#">
-                            <i class="fa-regular fa-user-tie"></i>
-                            <span class="menu_name">Teacher</span>
+                            <i class="fa-thin fa-user-tie"></i>
+                            <span class="menu_name">Teacher&#160;</span>
                         </a>
                         <i class="fa-regular fa-chevron-down arrow"></i>
                     </div>
@@ -81,8 +81,8 @@
                 <li>
                     <div class="menu_links">
                         <a href="#">
-                            <i class="fa-regular fa-file"></i>
-                            <span class="menu_name">Exam&#160;&#160;&#160;&#160;&#160;</span>
+                            <i class="fa-thin fa-file"></i>
+                            <span class="menu_name">Exam&#160;&#160;&#160;&#160;&#160;&#160;</span>
                         </a>
                         <i class="fa-regular fa-chevron-down arrow"></i>
                     </div>
@@ -99,8 +99,8 @@
                 <li>
                     <div class="menu_links">
                         <a href="#">
-                            <i class="fa-regular fa-book-blank"></i>
-                            <span class="menu_name">Subject&#160;</span>
+                            <i class="fa-thin fa-book-blank"></i>
+                            <span class="menu_name">Subject&#160;&#160;</span>
                         </a>
                         <i class="fa-regular fa-chevron-down arrow"></i>
                     </div>
@@ -111,7 +111,35 @@
                     </ul>
                 </li>
 
+                <li>
+                    <div class="menu_links">
+                        <a href="#">
+                            <i class="fa-thin fa-clipboard"></i>
+                            <span class="menu_name">Terminal</span>
+                        </a>
+                        <i class="fa-regular fa-chevron-down arrow"></i>
+                    </div>
+                    <ul class="sub_menu">
+                        <li><a class="menu_name" href="#">Terminal</a></li>
+                        <li><a asp-controller="TerminalEntry" asp-action="TerminalEntry">Entry</a></li>
+                        <li><a asp-controller="ManageTerminal" asp-action="Index">Manage</a></li>                       
+                    </ul>
+                </li>
 
+                <li>
+                    <div class="menu_links">
+                        <a href="#">
+                            <i class="fa-thin fa-chalkboard"></i>
+                            <span class="menu_name">Class&#160;&#160;&#160;&#160;&#160;&#160;</span>
+                        </a>
+                        <i class="fa-regular fa-chevron-down arrow"></i>
+                    </div>
+                    <ul class="sub_menu">
+                        <li><a class="menu_name" href="#">Class</a></li>
+                        <li><a asp-controller="" asp-action="">Subject</a></li>
+                        <li><a asp-controller="" asp-action="">Terminal</a></li>                       
+                    </ul>
+                </li>
 
                 <li>
                     <div class="menu_links">

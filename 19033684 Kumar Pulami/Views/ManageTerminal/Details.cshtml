@@ -1,0 +1,39 @@
+﻿@model _19033684_Kumar_Pulami.Models.ViewModel.Terminal.TerminalViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<br>
+<br>
+<br>
+<div class="row">
+    <h2>Terminal Details</h2>
+    <hr/>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TerminalID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TerminalID)
+        </dd>
+        <dt class = "col-sm-2 pt-3">
+            @Html.DisplayNameFor(model => model.TerminalName)
+        </dt>
+        <dd class = "col-sm-10 pt-3">
+            @Html.DisplayFor(model => model.TerminalName)
+        </dd>
+    </dl>
+</div>
+<div class="row form-group">
+    <div class="col">                
+        <br>            
+        @Html.ActionLink("Back To Index", "Index", "ManageTerminal", htmlAttributes: new {@class = "btn btn-primary"})
+        <br>
+        <br>
+    </div>
+</div> 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
