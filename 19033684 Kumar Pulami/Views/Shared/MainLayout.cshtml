@@ -136,8 +136,8 @@
                     </div>
                     <ul class="sub_menu">
                         <li><a class="menu_name" href="#">Class</a></li>
-                        <li><a asp-controller="" asp-action="">Subject</a></li>
-                        <li><a asp-controller="" asp-action="">Terminal</a></li>                       
+                        <li><a asp-controller="ClassSubject" asp-action="Index">Subject</a></li>
+                        <li><a asp-controller="ClassTerminal" asp-action="Index">Terminal</a></li>                       
                     </ul>
                 </li>
 
@@ -189,9 +189,11 @@
         <script src="~/js/MainLayout.js"></script>
 
         <!--Bootstrap JQuery Import-->
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/lib/jquery/dist/jquery.js"></script> 
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>        
+        @RenderSection("scripts", false)        
         <script src="~/js/site.js" asp-append-version="true"></script>
-        @RenderSection("scripts", false)
     </body>
 </html>

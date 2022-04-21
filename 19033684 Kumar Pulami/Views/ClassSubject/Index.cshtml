@@ -1,7 +1,7 @@
-﻿@using _19033684_Kumar_Pulami.Models.ViewModel.Student.Manage_Student
-@model ManageStudentIndexModel;
+﻿@model _19033684_Kumar_Pulami.Models.ViewModel.ClassSubjectViewModel
 
 @{
+    ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/MainLayout.cshtml";
 }
 
@@ -22,14 +22,9 @@
                     @Html.DropDownListFor(model => model.Grade, new SelectList(ViewBag.GradeList), htmlAttributes: new {@class = "form-control"})
                 </div>
 
-                <div class="form-group form-check-inline ">
-                    <label asp-for="Section" class="control-label"></label>
-                    @Html.DropDownListFor(model => model.Section, new SelectList(ViewBag.SectionList), htmlAttributes: new {@class = "form-control"})
-                </div>
                 <div class="d-block">
                     <span asp-validation-for="Batch" class="text-danger d-block"></span>
                     <span asp-validation-for="Grade" class="text-danger d-block"></span>
-                    <span asp-validation-for="Section" class="text-danger d-block"></span>
                 </div>
                 <div class="form-group py-3">
                     <input type="submit" value="Search" class="btn btn-dark" />
@@ -39,51 +34,42 @@
     </div>
 </div>
 
+@if (Model.SubjectList != null)
+{
+    
+<div id="PlaceHolderHere"></div>
 
-<div class="row mt-5">
-<h4>Student Information</h4>
+<div class="col pt-3">
+    <div class="row d-flex justify-content-between">
+        <div class="col">
+            <h4>Subject Information</h4>
+        </div>
+        <div class="col d-flex justify-content-end">
+            <button type="button" class="btn btn-success" data-toggle="ajax-modal" data-target="#assignSubject" data-url="@Url.Action("AssignSubject")">Assign Subject</button>
+        </div> 
+    </div>
 <hr/>
-    <div class = "d-flex table-content">
+    <div class = "row d-flex table-content">
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Student ID</th>
-                    <th>Name</th>
-                    <th>Batch</th>
-                    <th>Grade</th>
-                    <th>Section</th>
-                    <th>Address</th>
-                    <th>Guardian Contact</th>
+                    <th>Subject ID</th>
+                    <th>Subject Name</th>
                     <th>Actions</th>
                 </tr>
             </thead>
 
             <tbody>
-                @foreach (var item in Model.ListModel) {
+                @foreach (var item in Model.SubjectList) {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.StudentID)
+                            @Html.DisplayFor(modelItem => item.SubjectID)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.StudentName)
-                        </td>
+                            @Html.DisplayFor(modelItem => item.SubjectName)
+                        </td>                        
                         <td>
-                            @Html.DisplayFor(modelItem => item.Batch)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Grade)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Section)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Address)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.GuardianContact)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Generate", "Marksheet", new { item.StudentID }, htmlAttributes: new {@class ="btn btn-success"})
+                            @Html.ActionLink("Delete", "Delete", new { Model.Grade, Model.Batch, item.SubjectID }, htmlAttributes: new {@class ="btn btn-danger"})
                         </td>
                     </tr>
                 }
@@ -91,8 +77,22 @@
         </table>
     </div>
 </div>
+}
+
+
 
 @section scripts{
+    <script>
+        var PlaceHolderElement = $('#PlaceHolderHere');
+        $('button[data-toggle="ajax-modal"]').click(function (event){
+            var url = $(this).data('url');
+            $.get(url).done(function (data){
+                PlaceHolderElement.html(data);
+                PlaceHolderElement.find('.modal').modal('show');
+            })
+        })
+    </script>
    <script src="~/js/Marksheet.js" asp-append-version="true"></script>
    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+   
 }

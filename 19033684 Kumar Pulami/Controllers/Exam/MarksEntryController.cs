@@ -74,7 +74,7 @@ namespace _19033684_Kumar_Pulami.Controllers.Exam
                 }
             }
 
-            //Gettings student obtained marks
+            //Gettings studen
             List<String> studentList = new List<string>();
             using (SqlConnection connection = new SqlConnection(DatabaseAccess.GetConnection()))
             {
@@ -139,6 +139,7 @@ namespace _19033684_Kumar_Pulami.Controllers.Exam
                             marksDetailsDB = new MarksEntryMarksDetailViewModel();
                             foreach (DataRow row in queryData.Rows)
                             {
+                                marksDetailsDB.SubjectID = subject.SubjectID;
                                 marksDetailsDB.ObtainedMarks = row[0].ToString();
                                 marksDetailsDBModelList.Add(marksDetailsDB);
                             }

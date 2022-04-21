@@ -5,136 +5,131 @@
     Layout = "~/Views/Shared/MainLayout.cshtml";
 }
 
-<div class="row pt-3">
-    <div class="col search-content d-flex justify-content-center align-content-center">
-        <form asp-action="MarksEntry" method="get">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <h4 class="bold"> Search Section</h4>
-            <div class="pt-3">
-                <div class="form-group form-check-inline">
-                    <label asp-for="Batch" class="control-label"></label>
-                    <input asp-for="Batch" class="form-control" />
-                    @*@Html.DropDownListFor(model => model.Batch, new SelectList(ViewBag.BatchList), htmlAttributes: new {@class = "form-control"})*@
-                    <span asp-validation-for="Batch" class="text-danger"></span>
-                </div>
 
-                <div class="form-group form-check-inline">
-                    <label asp-for="Grade" class="control-label"></label>
-                    <input asp-for="Grade" class="form-control" />@*
-                        @Html.DropDownListFor(model => model.Grade, new SelectList(" "), htmlAttributes: new {@class = "form-control"})*@
-                    <span asp-validation-for="Grade" class="text-danger"></span>
-                </div>
-                <div class="form-group form-check-inline">
-                    <label asp-for="Section" class="control-label"></label>
-                    <input asp-for="Section" class="form-control" />@*
-                        @Html.DropDownListFor(model => model.Grade, new SelectList(" "), htmlAttributes: new {@class = "form-control"})*@
-                    <span asp-validation-for="Section" class="text-danger"></span>
-                </div>
+    <div class="row mt-5">
+        <div class="col search-content d-flex justify-content-center align-content-center">
+            <form asp-action="MarksEntry" method="get">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <h4 class="pt-3"> Search Section</h4>
+                <hr/>
+                <div class="">
+                    <div class="form-group form-check-inline">
+                        <label asp-for="Batch" class="control-label"></label>
+                        <input asp-for="Batch" class="form-control" />
+                        @*@Html.DropDownListFor(model => model.Batch, new SelectList(ViewBag.BatchList), htmlAttributes: new {@class = "form-control"})*@
+                        <span asp-validation-for="Batch" class="text-danger"></span>
+                    </div>
 
-                <div class="form-group form-check-inline">
-                    <label asp-for="Terminal" class="control-label"></label>
-                    <input asp-for="Terminal" class="form-control" />
-                    @*@Html.DropDownListFor(model => model.Terminal, new SelectList(" "), htmlAttributes: new {@class = "form-control"})*@
-                    <span asp-validation-for="Terminal" class="text-danger"></span>
-                </div>
+                    <div class="form-group form-check-inline">
+                        <label asp-for="Grade" class="control-label"></label>
+                        <input asp-for="Grade" class="form-control" />@*
+                            @Html.DropDownListFor(model => model.Grade, new SelectList(" "), htmlAttributes: new {@class = "form-control"})*@
+                        <span asp-validation-for="Grade" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check-inline">
+                        <label asp-for="Section" class="control-label"></label>
+                        <input asp-for="Section" class="form-control" />@*
+                            @Html.DropDownListFor(model => model.Grade, new SelectList(" "), htmlAttributes: new {@class = "form-control"})*@
+                        <span asp-validation-for="Section" class="text-danger"></span>
+                    </div>
 
-                <div class="form-group py-3">
-                    <input type="submit" value="Search" class="btn btn-primary" />
+                    <div class="form-group form-check-inline">
+                        <label asp-for="Terminal" class="control-label"></label>
+                        <input asp-for="Terminal" class="form-control" />
+                        @*@Html.DropDownListFor(model => model.Terminal, new SelectList(" "), htmlAttributes: new {@class = "form-control"})*@
+                        <span asp-validation-for="Terminal" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group py-3">
+                        <input type="submit" value="Search" class="btn btn-dark" />
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
+
 
 
 @if (Model.SubjectDetails != null)
 {
-
-        <input hidden asp-for="Batch" class="form-control" />
-        <input hidden asp-for="Grade" class="form-control" />
-        <input hidden asp-for="Section" class="form-control" />
-        <input hidden asp-for="Terminal" class="form-control" />
-
-        <div class="d-flex table-content">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Student Name</th>
-                        @foreach (var subjectNames in Model.SubjectDetails)
-                        {
-                            <th>                               
-                                @Html.HiddenFor(modelItem => subjectNames.SubjectID, htmlAttributes: new {@class = "form-control studentID"})
-                                @Html.DisplayFor(modelItem => subjectNames.SubjectName)
-                            </th>
-                        }
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr id="totalMark">
-                        <td>
-                            Total Marks
-                        </td>
-                        @foreach (var item in Model.TotalMarks)
-                        {
-                            <td>
-                                @Html.HiddenFor(modelItem => item.StubjectID, htmlAttributes: new {@class = "form-control subjectID"})
-                                @Html.TextBoxFor(modelItem => item.TotalMarks, htmlAttributes: new {@class = "form-control totalMark"})
-                            </td>
-                        }
-                    </tr>                 
-                    <tr id="passMark">
-                        <td>
-                            Pass Marks
-                        </td>
-                        @foreach (var item in Model.PassMarks)
-                        {
-                            <td>
-                                @Html.HiddenFor(modelItem => item.StubjectID, htmlAttributes: new {@class = "form-control "})
-                                @Html.TextBoxFor(modelItem => item.PassMarks, htmlAttributes: new {@class = "form-control "})
-                            </td>
-                        }
-                    </tr>
-                   
-
-                    @foreach (var item in Model.StudentDetails)
+<div class="row mt-5">
+<h4>Marks Information</h4>
+<hr/>
+<form>
+    <div class="d-flex table-content">
+        <table id="marksTable" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    @foreach (var subjectNames in Model.SubjectDetails)
                     {
-                        <tr id="@Html.ValueFor(modelItem => item.StudentID)">
-                            <td>
-                                @Html.HiddenFor(modelItem => item.StudentID, htmlAttributes: new {@class = "form-control studentID"})
-                                @Html.DisplayFor(modelItem => item.StudentName)
-                            </td>
-                            @foreach (var marks in item.MarksDetails)
-                            {
-                                <td>
-                                    @Html.HiddenFor(modelItem => item.StudentID, htmlAttributes: new {@class = "form-control subjectID"})
-                                    @Html.TextBoxFor(modelItem => marks.ObtainedMarks, htmlAttributes: new {@class = "form-control obtainedMark"})
-                                </td>
-                            }
-                        </tr>
+                        <th>
+                            @Html.DisplayFor(modelItem => subjectNames.SubjectName)
+                        </th>
                     }
-                </tbody>            
-            </table>            
-        </div>
+                </tr>
+            </thead>
 
-        <div>
-            <input type="submit" value="Submit" id="updateButton" class="btn-primary btn"/>
-        </div>
+            <tbody>
+                <tr id="totalMark">
+                    <td>
+                        <input type="text" id="studentID" value="totalMark" hidden/>
+                        Total Marks
+                    </td>
+                    @foreach (var item in Model.TotalMarks)
+                    {                        
+                        <td id="@Html.ValueFor(modelItem => item.StubjectID)">  
+                            @Html.TextBoxFor(modelItem => item.TotalMarks, htmlAttributes: new {@class = "form-control"})
+                            @Html.ValidationMessageFor(modelItem => item.TotalMarks)
+                        </td>
+                    }
+                </tr>                 
+                <tr id="passMark">
+                    <td>
+                        <input type="text" id="studentID" value="passMark" hidden/>
+                        Pass Marks
+                    </td>
+                    @foreach (var item in Model.PassMarks)
+                    {
+                        <td id="@Html.ValueFor(modelItem => item.StubjectID)">
+                            @Html.TextBoxFor(modelItem => item.PassMarks, htmlAttributes: new {@class = "form-control "})
+                            @Html.ValidationMessageFor(modelItem => item.PassMarks)
+                        </td>
+                    }
+                </tr>
 
-    @section Scripts
+
+                @foreach (var item in Model.StudentDetails)
+                {
+                    <tr id="@Html.ValueFor(modelItem => item.StudentID)">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudentName)
+                        </td>
+                        @foreach (var marks in item.MarksDetails)
+                        {
+                            <td id="@Html.ValueFor(modelItem => marks.SubjectID)">
+                                @Html.TextBoxFor(modelItem => marks.ObtainedMarks, htmlAttributes: new {@class = "form-control", id="marks"})
+                                @Html.ValidationMessageFor(modelItem => marks.ObtainedMarks)
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>            
+        </table>            
+    </div>
+
+    <div>
+        <input type="submit" value="Update" id="updateButton" class="btn-success btn"/>
+    </div>
+    
+</form>
+</div>
+}
+
+
+
+@section Scripts
 {
-<script>
-    $(function () {
-        $('#updateButton').click(function () {
-            var data = $(".obtainedMark").val();
-            $.ajax({
-                url: '/MarksEntry/MarksUpdate?marks=' + data,
-                type: 'post',
-            })
-        });           
-    })
-</script>
+    <script src="~/js/MarksEntry.js" asp-append-version="true"></script>        
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-}
-
-
-
