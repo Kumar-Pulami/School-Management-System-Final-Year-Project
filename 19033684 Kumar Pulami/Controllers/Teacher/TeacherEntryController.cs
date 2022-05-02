@@ -27,107 +27,82 @@ namespace _19033684_Kumar_Pulami.Controllers.Teacher
                 String teacherID = "TH" + currentDateAndTime;
                 String tempAddID = "TEMP-" + currentDateAndTime;
                 String permAddID = "PERM-" + currentDateAndTime;
-                DataTable queryData;
-
-
                 try
-                {
+                {                 
                     using (SqlConnection connection = new SqlConnection(DatabaseAccess.GetConnection()))
                     {
                         if (connection.State == System.Data.ConnectionState.Closed)
                         {
                             connection.Open();
                         }
-                        using (SqlCommand command = new SqlCommand("SELECT * FROM Person WHERE ID = @id;", connection))
+
+                        using (SqlCommand command = new SqlCommand("INSERT INTO Person VALUES(@id, @name, @DOB, @gender, @father, @mother)", connection))
                         {
                             command.Parameters.AddWithValue("@id", teacherID);
-                            using (SqlDataAdapter dataAdapter = new SqlDataAdapter(command))
-                            {
-                                queryData = new DataTable();
-                                dataAdapter.Fill(queryData);
-                            }
+                            command.Parameters.AddWithValue("@name", teacherDetails.Name);
+                            command.Parameters.AddWithValue("@DOB", teacherDetails.BOD);
+                            command.Parameters.AddWithValue("@gender", teacherDetails.Gender);
+                            command.Parameters.AddWithValue("@father", teacherDetails.FatherName);
+                            command.Parameters.AddWithValue("@mother", teacherDetails.MotherName);
+                            command.ExecuteNonQuery();
                         }
-                    }
 
-                    if (queryData.Rows.Count == 0)
-                    {
-                        using (SqlConnection connection = new SqlConnection(DatabaseAccess.GetConnection()))
+                        using (SqlCommand command = new SqlCommand("INSERT INTO Teacher VALUES(@id, @contact_number, @hire_date, @salary)", connection))
                         {
-                            if (connection.State == System.Data.ConnectionState.Closed)
-                            {
-                                connection.Open();
-                            }
-
-                            using (SqlCommand command = new SqlCommand("INSERT INTO Person VALUES(@id, @name, @DOB, @gender, @father, @mother)", connection))
-                            {
-                                command.Parameters.AddWithValue("@id", teacherID);
-                                command.Parameters.AddWithValue("@name", teacherDetails.Name);
-                                command.Parameters.AddWithValue("@DOB", teacherDetails.BOD);
-                                command.Parameters.AddWithValue("@gender", teacherDetails.Gender);
-                                command.Parameters.AddWithValue("@father", teacherDetails.FatherName);
-                                command.Parameters.AddWithValue("@mother", teacherDetails.MotherName);
-                                command.ExecuteNonQuery();
-                            }
-
-                            using (SqlCommand command = new SqlCommand("INSERT INTO Teacher VALUES(@id, @contact_number, @hire_date, @salary)", connection))
-                            {
-                                command.Parameters.AddWithValue("@id", teacherID);
-                                command.Parameters.AddWithValue("@contact_number", teacherDetails.Contact);
-                                command.Parameters.AddWithValue("@hire_date", teacherDetails.Hire_Date);
-                                command.Parameters.AddWithValue("@salary", teacherDetails.Salary);
-                                command.ExecuteNonQuery();
-                            }
-
-                            using (SqlCommand permanametAddressCommand = new SqlCommand("INSERT INTO Address VALUES(@id, @province, @district, @city, @ward)", connection))
-                            {
-                                permanametAddressCommand.Parameters.AddWithValue("@id", permAddID);
-                                permanametAddressCommand.Parameters.AddWithValue("@province", teacherDetails.PermamentProvince);
-                                permanametAddressCommand.Parameters.AddWithValue("@district", teacherDetails.PermamentDistrict);
-                                permanametAddressCommand.Parameters.AddWithValue("@city", teacherDetails.PermamentCity);
-                                permanametAddressCommand.Parameters.AddWithValue("@ward", teacherDetails.PermamentWard);
-
-                                permanametAddressCommand.ExecuteNonQuery();
-                            }
-
-                            using (SqlCommand temporaryAddressCommand = new SqlCommand("INSERT INTO Address VALUES(@id, @province, @district, @city, @ward)", connection))
-                            {
-                                temporaryAddressCommand.Parameters.AddWithValue("@id", tempAddID);
-                                temporaryAddressCommand.Parameters.AddWithValue("@province", teacherDetails.TemporaryProvince);
-                                temporaryAddressCommand.Parameters.AddWithValue("@district", teacherDetails.TemporaryDistrict);
-                                temporaryAddressCommand.Parameters.AddWithValue("@city", teacherDetails.TemporaryCity);
-                                temporaryAddressCommand.Parameters.AddWithValue("@ward", teacherDetails.TemporaryWard);
-                                temporaryAddressCommand.ExecuteNonQuery();
-                            }
+                            command.Parameters.AddWithValue("@id", teacherID);
+                            command.Parameters.AddWithValue("@contact_number", teacherDetails.Contact);
+                            command.Parameters.AddWithValue("@hire_date", teacherDetails.Hire_Date);
+                            command.Parameters.AddWithValue("@salary", teacherDetails.Salary);
+                            command.ExecuteNonQuery();
                         }
 
-                        using (SqlConnection connection = new SqlConnection(DatabaseAccess.GetConnection()))
+                        using (SqlCommand permanametAddressCommand = new SqlCommand("INSERT INTO Address VALUES(@id, @province, @district, @city, @ward)", connection))
                         {
-                            if (connection.State == System.Data.ConnectionState.Closed)
-                            {
-                                connection.Open();
-                            }
+                            permanametAddressCommand.Parameters.AddWithValue("@id", permAddID);
+                            permanametAddressCommand.Parameters.AddWithValue("@province", teacherDetails.PermamentProvince);
+                            permanametAddressCommand.Parameters.AddWithValue("@district", teacherDetails.PermamentDistrict);
+                            permanametAddressCommand.Parameters.AddWithValue("@city", teacherDetails.PermamentCity);
+                            permanametAddressCommand.Parameters.AddWithValue("@ward", teacherDetails.PermamentWard);
 
-                            using (SqlCommand personTempAddressCommand = new SqlCommand("INSERT INTO Person_Address VALUES(@stdID, @addressID, 'Temporary')", connection))
-                            {
-                                personTempAddressCommand.Parameters.AddWithValue("@stdID", teacherID);
-                                personTempAddressCommand.Parameters.AddWithValue("@addressID", tempAddID);
-                                personTempAddressCommand.ExecuteNonQuery();
-
-                            }
-
-                            using (SqlCommand personPerAddressCommand = new SqlCommand("INSERT INTO Person_Address VALUES(@stdID, @addressID, 'Permament')", connection))
-                            {
-                                personPerAddressCommand.Parameters.AddWithValue("@stdID", teacherID);
-                                personPerAddressCommand.Parameters.AddWithValue("@addressID", permAddID);
-                                personPerAddressCommand.ExecuteNonQuery();
-                            }
+                            permanametAddressCommand.ExecuteNonQuery();
                         }
-                        TempData["SuccessMessage"] = "Teacher Registered Successfully...!";
+
+                        using (SqlCommand temporaryAddressCommand = new SqlCommand("INSERT INTO Address VALUES(@id, @province, @district, @city, @ward)", connection))
+                        {
+                            temporaryAddressCommand.Parameters.AddWithValue("@id", tempAddID);
+                            temporaryAddressCommand.Parameters.AddWithValue("@province", teacherDetails.TemporaryProvince);
+                            temporaryAddressCommand.Parameters.AddWithValue("@district", teacherDetails.TemporaryDistrict);
+                            temporaryAddressCommand.Parameters.AddWithValue("@city", teacherDetails.TemporaryCity);
+                            temporaryAddressCommand.Parameters.AddWithValue("@ward", teacherDetails.TemporaryWard);
+                            temporaryAddressCommand.ExecuteNonQuery();
+                        }
                     }
-                    else
+
+                    using (SqlConnection connection = new SqlConnection(DatabaseAccess.GetConnection()))
                     {
-                        errorMessage = "Please, Update Date and Time.";
+                        if (connection.State == System.Data.ConnectionState.Closed)
+                        {
+                            connection.Open();
+                        }
+
+                        using (SqlCommand personTempAddressCommand = new SqlCommand("INSERT INTO Person_Address VALUES(@stdID, @addressID, 'Temporary')", connection))
+                        {
+                            personTempAddressCommand.Parameters.AddWithValue("@stdID", teacherID);
+                            personTempAddressCommand.Parameters.AddWithValue("@addressID", tempAddID);
+                            personTempAddressCommand.ExecuteNonQuery();
+
+                        }
+
+                        using (SqlCommand personPerAddressCommand = new SqlCommand("INSERT INTO Person_Address VALUES(@stdID, @addressID, 'Permament')", connection))
+                        {
+                            personPerAddressCommand.Parameters.AddWithValue("@stdID", teacherID);
+                            personPerAddressCommand.Parameters.AddWithValue("@addressID", permAddID);
+                            personPerAddressCommand.ExecuteNonQuery();
+                        }
                     }
+                    TempData["SuccessMessage"] = "Teacher Registered Successfully...!";
+                    return RedirectToAction("Entry");
+
                 }
                 catch (SqlException)
                 {
@@ -165,8 +140,8 @@ namespace _19033684_Kumar_Pulami.Controllers.Teacher
                     errorMessage = "Something Went Wrong, Try Again.";
                 }
             }
-            ViewBag.ErrorMessage = errorMessage;
-            return View();
+            TempData["Error"] = errorMessage;
+            return RedirectToAction("Entry");
         }
     }    
 }

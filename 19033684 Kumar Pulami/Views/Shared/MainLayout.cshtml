@@ -13,7 +13,6 @@
         <!---Bootstrap CSS Import--->
          <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
          <link rel="stylesheet" href="~/css/site.css" /> 
-
     </head>
 
     <body>
@@ -81,7 +80,7 @@
                 <li>
                     <div class="menu_links">
                         <a href="#">
-                            <i class="fa-thin fa-file"></i>
+                            <i class="fa-thin fa-diploma"></i>
                             <span class="menu_name">Exam&#160;&#160;&#160;&#160;&#160;&#160;</span>
                         </a>
                         <i class="fa-regular fa-chevron-down arrow"></i>
@@ -141,15 +140,17 @@
                     </ul>
                 </li>
 
+
                 <li>
                     <div class="menu_links">
-                        <a href="#">
-                            <i class="fa-regular fa-arrow-right-from-bracket"></i>
+                        <a asp-controller="Logout" asp-action="Logout">
+                            <i class="fa-thin fa-arrow-right-from-bracket"></i>
                             <span class="menu_name">Logout</span>
                         </a>
                     </div>
+
                     <ul class="sub_menu">
-                        <li><a class="menu_name" href="#">Logout</a></li>
+                        <li><a class="menu_name" asp-controller="Logout" asp-action="Logout">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -165,10 +166,20 @@
                 <div class="container">
                     @if(TempData["SuccessMessage"] != null)
                     {
-                        <div class="alert alert-success alert-dismissible mt-3">
-                            <strong>Success!</strong> @TempData["SuccessMessage"]
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>                            
+                        @*<div class="row alert alert-success alert-dismissible fade show mt-3 d-flex" role="alert">
+                            <strong class="col">Success!</strong>  @TempData["SuccessMessage"]
+                            <button style="text-align: end;" class="close col" type="button" data-dismiss="alert" aria-label="close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>                            
+                        </div>*@
+
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                          <strong>Success!</strong> @TempData["SuccessMessage"]
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
                         </div>
+
                     }
                     @if(TempData["Error"] != null)
                     {
@@ -195,5 +206,8 @@
         <script src="~/lib/jquery/dist/jquery.min.js"></script>        
         @RenderSection("scripts", false)        
         <script src="~/js/site.js" asp-append-version="true"></script>
+        <script>
+           $(".alert").alert('close')
+        </script>
     </body>
 </html>

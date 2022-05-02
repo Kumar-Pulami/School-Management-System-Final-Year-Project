@@ -14,6 +14,7 @@ namespace _19033684_Kumar_Pulami.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken()]
         public IActionResult Login(LoginView loginCredential)
         {
             LoginDB loginDB = new();

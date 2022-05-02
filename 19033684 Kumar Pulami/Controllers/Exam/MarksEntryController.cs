@@ -1,7 +1,10 @@
-﻿using _19033684_Kumar_Pulami.Models.ViewModel.Exam.Marks_Entry;
+﻿using _19033684_Kumar_Pulami.Models.DatabaseModel.Exam;
+using _19033684_Kumar_Pulami.Models.ViewModel.Exam.Marks_Entry;
+using _19033684_Kumar_Pulami.Models.ViewModel.Exam.Marks_Entry.PostBack;
 using _19033684_Kumar_Pulami.Models.ViewModel.Exam.Result;
 using _19033684_Kumar_Pulami.Services;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -13,6 +16,23 @@ namespace _19033684_Kumar_Pulami.Controllers.Exam
         public IActionResult Index()
         {
             ViewBag.TitleName = "Marks Entry";
+            ViewBag.BatchList = DropDownFilter.GetBatchList();
+
+            List<String> gradeList = new List<String>();
+            gradeList.Add("Select Grade");
+            ViewBag.GradeList = gradeList;
+
+            List<String> sectionList = new List<String>();
+            sectionList.Add("Select Section");
+            ViewBag.SectionList = sectionList;
+
+
+            TerminalDataDatabaseModel termianlDetails = new TerminalDataDatabaseModel();
+            termianlDetails.TerminalID = 0;
+            termianlDetails.TerminalName = "Select Terminal";
+            List<TerminalDataDatabaseModel> terminalList = new List<TerminalDataDatabaseModel>();
+            terminalList.Add(termianlDetails);
+            ViewBag.TerminalList = terminalList;
             return View();
         }
 
@@ -20,24 +40,99 @@ namespace _19033684_Kumar_Pulami.Controllers.Exam
         public IActionResult MarksEntry(MarksEntrySearchViewModel searchContent)
         {
             ViewBag.TitleName = "Marks Entry";
+            ViewBag.BatchList = DropDownFilter.GetBatchList();
+            ViewBag.GradeList = DropDownFilter.GetGradeList(searchContent.Batch);
+            ViewBag.SectionList = DropDownFilter.GetSectionList(searchContent.Batch, searchContent.Grade);
+            ViewBag.TerminalList = DropDownFilter.GetTerminalList(searchContent.Batch, searchContent.Grade);
             MarksEntryIndexViewModel model = new MarksEntryIndexViewModel();
             model = GetEntryList(searchContent.Batch, searchContent.Grade, searchContent.Section, searchContent.Terminal);
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult MarksEntry(MarksEntryIndexViewModel model)
-        {
-            ViewBag.TitleName = "Marks Entry";
+        public IActionResult MarksEntry(PostBackMarksEntryViewModel value)
+        {            
+            MarksEntrySearchViewModel searchcontent;
+            searchcontent = new MarksEntrySearchViewModel();
+            searchcontent.Section = value.Section;
+            searchcontent.Terminal = value.Terminal;
+            searchcontent.Batch = value.Batch;
+            searchcontent.Grade = value.Grade;
+            float mark;
+            String? studentID;
+            int? terminalID;
+            int? subjectID;
+            foreach (PostBackMarksEntryStudentDetailsViewModel student in value.StudentList)
+            {
+                foreach (PostBackMarksEntryMarksDetailsViewModel subject in student.SubjectMarks)
+                {
+                    if (String.IsNullOrEmpty(subject.Mark))
+                    {
+                        TempData["Error"] = "Please, Fill up all the marks.";
+                        return RedirectToAction("MarksEntry", value);
+                    }
+                    else
+                    {
+                        try
+                        {
+                            mark = float.Parse(subject.Mark);
+                            studentID = student.StudentID;
+                            terminalID = value.Terminal;
+                            subjectID = subject.SubjectID;
+
+                            using (SqlConnection connection = new SqlConnection(DatabaseAccess.GetConnection()))
+                            {
+                                if (connection.State == ConnectionState.Closed)
+                                {
+                                    connection.Open();
+                                }
+                                SqlCommand command;
+                                if (studentID == "totalMark")
+                                {
+                                    command = new SqlCommand("UPDATE Marks SET Marks.Total_Mark = @mark FROM Marks JOIN Student ON Marks.StudentID = Student.ID WHERE Student.Batch = @batch AND Student.Grade = @grade AND Marks.TerminalID = @terminal AND Marks.SubjectID = @subject;", connection);
+                                    command.Parameters.AddWithValue("mark", mark);
+                                    command.Parameters.AddWithValue("batch", value.Batch);
+                                    command.Parameters.AddWithValue("terminal", value.Terminal);
+                                    command.Parameters.AddWithValue("grade", value.Grade);
+                                    command.Parameters.AddWithValue("subject", subjectID);
+                                    command.ExecuteNonQuery();
+
+                                }
+                                else if (studentID == "passMark")
+                                {
+                                    command = new SqlCommand("UPDATE Marks SET Marks.Pass_Mark = @mark FROM Marks JOIN Student ON Marks.StudentID = Student.ID WHERE Student.Batch = @batch AND Student.Grade = @grade AND Marks.TerminalID = @terminal AND Marks.SubjectID = @subject;", connection);
+                                    command.Parameters.AddWithValue("mark", mark);
+                                    command.Parameters.AddWithValue("batch", value.Batch);
+                                    command.Parameters.AddWithValue("terminal", value.Terminal);
+                                    command.Parameters.AddWithValue("grade", value.Grade);
+                                    command.Parameters.AddWithValue("subject", subjectID);
+                                    command.ExecuteNonQuery();
+
+                                }
+                                else
+                                {
+                                    command = new SqlCommand("UPDATE Marks SET Obtained_Mark = @mark FROM Marks WHERE subjectID = @subject AND studentID = @student AND TerminalID = @terminal;", connection);
+                                    command.Parameters.AddWithValue("terminal", value.Terminal);
+                                    command.Parameters.AddWithValue("student", student.StudentID);
+                                    command.Parameters.AddWithValue("subject", subject.SubjectID);
+                                    command.Parameters.AddWithValue("mark", mark);
+                                    command.ExecuteNonQuery();
+                                }
+                            }
+                        }
+                        catch (FormatException ex)
+                        {
+                            TempData["Error"] = "Please, Enter Marks in Number Format.";
+                            return RedirectToAction("MarksEntry", value);
+                        }
+                    }
+                }
+            }
+            TempData["SuccessMessage"] = "Marks Updated Successfully.";
             return View("Index");
         }
 
-        [HttpPost]
-        public void MarksUpdate(string marks)
-        {
-
-        }
-
+        
         public MarksEntryIndexViewModel GetEntryList(int? batch, int? grade, String? section, int? terminal)
         {
             MarksEntryIndexViewModel model = new MarksEntryIndexViewModel();
@@ -233,6 +328,11 @@ namespace _19033684_Kumar_Pulami.Controllers.Exam
                 }
             }
             return studentName;
+        }
+
+        public JsonResult GetTerminalJSON(int batch, int grade)
+        {
+            return Json(DropDownFilter.GetTerminalList(batch, grade));
         }
     }
 }

@@ -26,107 +26,84 @@ namespace _19033684_Kumar_Pulami.Controllers.Student
                 String StudentID = "ST" + currentDateAndTime;
                 String tempAddID = "TEMP-" + currentDateAndTime;
                 String permAddID = "PERM-" + currentDateAndTime;
-                DataTable queryData;
                 try
-                {                  
+                { 
                     using (SqlConnection connection = new SqlConnection(DatabaseAccess.GetConnection()))
                     {
                         if (connection.State == System.Data.ConnectionState.Closed)
                         {
                             connection.Open();
                         }
-                        using (SqlCommand command = new SqlCommand("SELECT * FROM Person WHERE ID = @id;", connection))
+
+                        using (SqlCommand command = new SqlCommand("INSERT INTO Person VALUES(@id, @name, @DOB, @gender, @father, @mother)", connection))
                         {
                             command.Parameters.AddWithValue("@id", StudentID);
-                            using (SqlDataAdapter dataAdapter = new SqlDataAdapter(command))
-                            {
-                                queryData = new DataTable();
-                                dataAdapter.Fill(queryData);
-                            }
+                            command.Parameters.AddWithValue("@name", studentData.Name);
+                            command.Parameters.AddWithValue("@DOB", studentData.BOD);
+                            command.Parameters.AddWithValue("@gender", studentData.Gender);
+                            command.Parameters.AddWithValue("@father", studentData.FatherName);
+                            command.Parameters.AddWithValue("@mother", studentData.MotherName);
+                            command.ExecuteNonQuery();
                         }
-                    }
 
-                    if (queryData.Rows.Count == 0)
-                    {
-                        using (SqlConnection connection = new SqlConnection(DatabaseAccess.GetConnection()))
+                        using (SqlCommand command = new SqlCommand("INSERT INTO Student VALUES(@id, @batch, @grade, @section, @guardian_contact, @school_name, @school_garde)", connection))
                         {
-                            if (connection.State == System.Data.ConnectionState.Closed)
-                            {
-                                connection.Open();
-                            }
-
-                            using (SqlCommand command = new SqlCommand("INSERT INTO Person VALUES(@id, @name, @DOB, @gender, @father, @mother)", connection))
-                            {
-                                command.Parameters.AddWithValue("@id", StudentID);
-                                command.Parameters.AddWithValue("@name", studentData.Name);
-                                command.Parameters.AddWithValue("@DOB", studentData.BOD);
-                                command.Parameters.AddWithValue("@gender", studentData.Gender);
-                                command.Parameters.AddWithValue("@father", studentData.FatherName);
-                                command.Parameters.AddWithValue("@mother", studentData.MotherName);
-                                command.ExecuteNonQuery();
-                            }
-
-                            using (SqlCommand command = new SqlCommand("INSERT INTO Student VALUES(@id, @batch, @grade, @section, @guardian_contact, @school_name, @school_garde)", connection))
-                            {
-                                command.Parameters.AddWithValue("@id", StudentID);
-                                command.Parameters.AddWithValue("@batch", studentData.Batch);
-                                command.Parameters.AddWithValue("@grade", studentData.Grade);
-                                command.Parameters.AddWithValue("@section", studentData.Section);
-                                command.Parameters.AddWithValue("@guardian_contact", studentData.GuardianContact);
-                                command.Parameters.AddWithValue("@school_name", studentData.PreviousSchool);
-                                command.Parameters.AddWithValue("@school_garde", studentData.PreviousSchoolGrade);
-                                command.ExecuteNonQuery();
-                            }
-
-                            using (SqlCommand permanametAddressCommand = new SqlCommand("INSERT INTO Address VALUES(@id, @province, @district, @city, @ward)", connection))
-                            {
-                                permanametAddressCommand.Parameters.AddWithValue("@id", permAddID);
-                                permanametAddressCommand.Parameters.AddWithValue("@province", studentData.PermamentProvince);
-                                permanametAddressCommand.Parameters.AddWithValue("@district", studentData.PermamentDistrict);
-                                permanametAddressCommand.Parameters.AddWithValue("@city", studentData.PermamentCity);
-                                permanametAddressCommand.Parameters.AddWithValue("@ward", studentData.PermamentWard);
-                                permanametAddressCommand.ExecuteNonQuery();
-                            }
-
-                            using (SqlCommand temporaryAddressCommand = new SqlCommand("INSERT INTO Address VALUES(@id, @province, @district, @city, @ward)", connection))
-                            {
-                                temporaryAddressCommand.Parameters.AddWithValue("@id", tempAddID);
-                                temporaryAddressCommand.Parameters.AddWithValue("@province", studentData.TemporaryProvince);
-                                temporaryAddressCommand.Parameters.AddWithValue("@district", studentData.TemporaryDistrict);
-                                temporaryAddressCommand.Parameters.AddWithValue("@city", studentData.TemporaryCity);
-                                temporaryAddressCommand.Parameters.AddWithValue("@ward", studentData.TemporaryWard);
-                                temporaryAddressCommand.ExecuteNonQuery();
-                            }
+                            command.Parameters.AddWithValue("@id", StudentID);
+                            command.Parameters.AddWithValue("@batch", studentData.Batch);
+                            command.Parameters.AddWithValue("@grade", studentData.Grade);
+                            command.Parameters.AddWithValue("@section", studentData.Section);
+                            command.Parameters.AddWithValue("@guardian_contact", studentData.GuardianContact);
+                            command.Parameters.AddWithValue("@school_name", studentData.PreviousSchool);
+                            command.Parameters.AddWithValue("@school_garde", studentData.PreviousSchoolGrade);
+                            command.ExecuteNonQuery();
                         }
 
-                        using (SqlConnection connection = new SqlConnection(DatabaseAccess.GetConnection()))
+                        using (SqlCommand permanametAddressCommand = new SqlCommand("INSERT INTO Address VALUES(@id, @province, @district, @city, @ward)", connection))
                         {
-                            if (connection.State == System.Data.ConnectionState.Closed)
-                            {
-                                connection.Open();
-                            }
-
-                            using(SqlCommand personTempAddressCommand = new SqlCommand("INSERT INTO Person_Address VALUES(@stdID, @addressID, 'Temporary')", connection))
-                            {
-                                personTempAddressCommand.Parameters.AddWithValue("@stdID", StudentID);
-                                personTempAddressCommand.Parameters.AddWithValue("@addressID", tempAddID);
-                                personTempAddressCommand.ExecuteNonQuery();
-
-                            }
-
-                            using (SqlCommand personPerAddressCommand = new SqlCommand("INSERT INTO Person_Address VALUES(@stdID, @addressID, 'Permament')", connection))
-                            {
-                                personPerAddressCommand.Parameters.AddWithValue("@stdID", StudentID);
-                                personPerAddressCommand.Parameters.AddWithValue("@addressID", permAddID);
-                                personPerAddressCommand.ExecuteNonQuery();
-                            }
+                            permanametAddressCommand.Parameters.AddWithValue("@id", permAddID);
+                            permanametAddressCommand.Parameters.AddWithValue("@province", studentData.PermamentProvince);
+                            permanametAddressCommand.Parameters.AddWithValue("@district", studentData.PermamentDistrict);
+                            permanametAddressCommand.Parameters.AddWithValue("@city", studentData.PermamentCity);
+                            permanametAddressCommand.Parameters.AddWithValue("@ward", studentData.PermamentWard);
+                            permanametAddressCommand.ExecuteNonQuery();
                         }
-                        TempData["SuccessMessage"] = "Student Admitted Successfully...!";
+
+                        using (SqlCommand temporaryAddressCommand = new SqlCommand("INSERT INTO Address VALUES(@id, @province, @district, @city, @ward)", connection))
+                        {
+                            temporaryAddressCommand.Parameters.AddWithValue("@id", tempAddID);
+                            temporaryAddressCommand.Parameters.AddWithValue("@province", studentData.TemporaryProvince);
+                            temporaryAddressCommand.Parameters.AddWithValue("@district", studentData.TemporaryDistrict);
+                            temporaryAddressCommand.Parameters.AddWithValue("@city", studentData.TemporaryCity);
+                            temporaryAddressCommand.Parameters.AddWithValue("@ward", studentData.TemporaryWard);
+                            temporaryAddressCommand.ExecuteNonQuery();
+                        }
                     }
-                    else
+
+                    using (SqlConnection connection = new SqlConnection(DatabaseAccess.GetConnection()))
                     {
-                        errorMessage = "Please, Update Date and Time.";
+                        if (connection.State == System.Data.ConnectionState.Closed)
+                        {
+                            connection.Open();
+                        }
+
+                        using(SqlCommand personTempAddressCommand = new SqlCommand("INSERT INTO Person_Address VALUES(@stdID, @addressID, 'Temporary')", connection))
+                        {
+                            personTempAddressCommand.Parameters.AddWithValue("@stdID", StudentID);
+                            personTempAddressCommand.Parameters.AddWithValue("@addressID", tempAddID);
+                            personTempAddressCommand.ExecuteNonQuery();
+
+                        }
+
+                        using (SqlCommand personPerAddressCommand = new SqlCommand("INSERT INTO Person_Address VALUES(@stdID, @addressID, 'Permament')", connection))
+                        {
+                            personPerAddressCommand.Parameters.AddWithValue("@stdID", StudentID);
+                            personPerAddressCommand.Parameters.AddWithValue("@addressID", permAddID);
+                            personPerAddressCommand.ExecuteNonQuery();
+                        }
                     }
+                    TempData["SuccessMessage"] = "Student Admitted Successfully...!";
+                    return RedirectToAction("AdmissionForm");
+
                 }
                 catch(SqlException)
                 {
@@ -164,8 +141,8 @@ namespace _19033684_Kumar_Pulami.Controllers.Student
                     errorMessage = "Something Went Wrong, Try Again.";
                 }
             }
-            ViewBag.ErrorMessage = errorMessage;
-            return View("Index");
+            TempData["Error"] = errorMessage;
+            return RedirectToAction("AdmissionForm");
         }
     }
 }

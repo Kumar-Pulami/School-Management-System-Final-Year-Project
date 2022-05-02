@@ -41,8 +41,17 @@
 @if (Model.StudentResultList != null)
 {
     <br>
+    <div class="row d-flex justify-content-between">
+        <div class="col">
+
+        </div>
+        <div class="col d-flex justify-content-between">
+            <div></div>
+            <input id="printPDF" class="btn btn-info btn-lg" type="button" value="Print PDF"/>
+        </div>
+    </div>
     <hr/>
-    <div class="col px-2 py-2" style="outline: thick solid #000000">
+    <div id="printsection" class="col px-2 py-2" style="outline: thick solid #000000">
         <div class="row justify-content-between">
             <div class="col pt-3 pl-5">
                 <img style="width: 80px; height: 80px; margin-left: 20px;" src="~/Assets/Images/school_logo.png">
@@ -130,6 +139,8 @@
 }
 
 @section scripts{
-   <script src="~/js/Result.js" asp-append-version="true"></script>
+   <script src="~/js/Result.js" asp-append-version="true"></script>   
+   <script src="~/js/printPDF.js" asp-append-version="true"></script>
+   <script src="~/js/printThis.js" asp-append-version="true"></script>
    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

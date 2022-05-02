@@ -4,7 +4,7 @@
     ViewBag.TitleName = "Teacher Entry";
     Layout = "~/Views/Shared/MainLayout.cshtml";
 }
-    <form asp-action="AdmissionForm" method = "post"> 
+    <form asp-action="Entry" method = "post"> 
         <div asp-validation-summary="ModelOnly" class="text-danger"></div> 
         <div class="row">
             <div class="col">
@@ -41,7 +41,16 @@
                 <div class="col d-flex justify-content-between">
                     <div class="col form-group form-check-inline">
                         <label asp-for="Gender" class="control-label"></label>
-                        <input asp-for="Gender" class="form-control" />
+                        <div class="col">
+                            <label class="radio-inline">
+                                @Html.RadioButtonFor(model => model.Gender, "Male", new {@checked="checked"})
+                                Male
+                            </label>
+                            <label class="radio-inline">
+                                @Html.RadioButtonFor(model => model.Gender, "Female", new {@value = "gender"})
+                                Female
+                            </label>
+                        </div>
                         <span asp-validation-for="Gender" class="text-danger"></span>
                     </div>
                     <br>

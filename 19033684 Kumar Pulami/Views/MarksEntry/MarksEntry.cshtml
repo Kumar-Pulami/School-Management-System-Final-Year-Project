@@ -1,11 +1,8 @@
 ﻿@model _19033684_Kumar_Pulami.Models.ViewModel.Exam.Marks_Entry.MarksEntryIndexViewModel
-
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/MainLayout.cshtml";
 }
-
-
     <div class="row mt-5">
         <div class="col search-content d-flex justify-content-center align-content-center">
             <form asp-action="MarksEntry" method="get">
@@ -15,29 +12,27 @@
                 <div class="">
                     <div class="form-group form-check-inline">
                         <label asp-for="Batch" class="control-label"></label>
-                        <input asp-for="Batch" class="form-control" />
-                        @*@Html.DropDownListFor(model => model.Batch, new SelectList(ViewBag.BatchList), htmlAttributes: new {@class = "form-control"})*@
-                        <span asp-validation-for="Batch" class="text-danger"></span>
+                        @Html.DropDownListFor(model => model.Batch, new SelectList(ViewBag.BatchList), "Select Batch", htmlAttributes: new {@class = "form-control"})
                     </div>
 
                     <div class="form-group form-check-inline">
                         <label asp-for="Grade" class="control-label"></label>
-                        <input asp-for="Grade" class="form-control" />@*
-                            @Html.DropDownListFor(model => model.Grade, new SelectList(" "), htmlAttributes: new {@class = "form-control"})*@
-                        <span asp-validation-for="Grade" class="text-danger"></span>
+                        @Html.DropDownListFor(model => model.Grade, new SelectList(ViewBag.GradeList), htmlAttributes: new {@class = "form-control"})
                     </div>
                     <div class="form-group form-check-inline">
-                        <label asp-for="Section" class="control-label"></label>
-                        <input asp-for="Section" class="form-control" />@*
-                            @Html.DropDownListFor(model => model.Grade, new SelectList(" "), htmlAttributes: new {@class = "form-control"})*@
-                        <span asp-validation-for="Section" class="text-danger"></span>
+                        <label asp-for="Section" class="control-label"></label>                       
+                        @Html.DropDownListFor(model => model.Section, new SelectList(ViewBag.SectionList), htmlAttributes: new {@class = "form-control"})
                     </div>
 
                     <div class="form-group form-check-inline">
                         <label asp-for="Terminal" class="control-label"></label>
-                        <input asp-for="Terminal" class="form-control" />
-                        @*@Html.DropDownListFor(model => model.Terminal, new SelectList(" "), htmlAttributes: new {@class = "form-control"})*@
-                        <span asp-validation-for="Terminal" class="text-danger"></span>
+                        @Html.DropDownListFor(model => model.Terminal, new SelectList(ViewBag.TerminalList, "TerminalID", "TerminalName"), htmlAttributes: new {@class = "form-control"})
+                    </div>
+                    <div class="d-block">
+                        <span asp-validation-for="Batch" class="text-danger d-block"></span>
+                        <span asp-validation-for="Grade" class="text-danger d-block"></span>
+                        <span asp-validation-for="Section" class="text-danger d-block"></span>
+                        <span asp-validation-for="Terminal" class="text-danger d-block"></span>
                     </div>
 
                     <div class="form-group py-3">
@@ -53,9 +48,8 @@
 @if (Model.SubjectDetails != null)
 {
 <div class="row mt-5">
-<h4>Marks Information</h4>
-<hr/>
-<form>
+    <h4>Marks Information</h4>
+    <hr/>
     <div class="d-flex table-content">
         <table id="marksTable" class="table table-hover">
             <thead>
@@ -80,7 +74,6 @@
                     {                        
                         <td id="@Html.ValueFor(modelItem => item.StubjectID)">  
                             @Html.TextBoxFor(modelItem => item.TotalMarks, htmlAttributes: new {@class = "form-control"})
-                            @Html.ValidationMessageFor(modelItem => item.TotalMarks)
                         </td>
                     }
                 </tr>                 
@@ -93,7 +86,6 @@
                     {
                         <td id="@Html.ValueFor(modelItem => item.StubjectID)">
                             @Html.TextBoxFor(modelItem => item.PassMarks, htmlAttributes: new {@class = "form-control "})
-                            @Html.ValidationMessageFor(modelItem => item.PassMarks)
                         </td>
                     }
                 </tr>
@@ -109,7 +101,6 @@
                         {
                             <td id="@Html.ValueFor(modelItem => marks.SubjectID)">
                                 @Html.TextBoxFor(modelItem => marks.ObtainedMarks, htmlAttributes: new {@class = "form-control", id="marks"})
-                                @Html.ValidationMessageFor(modelItem => marks.ObtainedMarks)
                             </td>
                         }
                     </tr>
@@ -120,16 +111,13 @@
 
     <div>
         <input type="submit" value="Update" id="updateButton" class="btn-success btn"/>
-    </div>
-    
-</form>
+    </div>    
 </div>
 }
 
 
 
-@section Scripts
-{
+@section Scripts{
     <script src="~/js/MarksEntry.js" asp-append-version="true"></script>        
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

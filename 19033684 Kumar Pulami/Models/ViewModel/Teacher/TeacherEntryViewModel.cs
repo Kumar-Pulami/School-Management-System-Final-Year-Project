@@ -5,7 +5,7 @@ namespace _19033684_Kumar_Pulami.Models.ViewModel.Teacher
     public class TeacherEntryViewModel
     {
         [Display(Name = "Teacher Name")]
-        [Required(ErrorMessage = "Please, enter the student name.")]
+        [Required(ErrorMessage = "Please, enter the teacher name.")]
         public string? Name { get; set; }
 
 
@@ -29,7 +29,7 @@ namespace _19033684_Kumar_Pulami.Models.ViewModel.Teacher
 
 
         [Display(Name = "Contact")]
-        [Required(ErrorMessage = "Please, provide guardian contact number")]
+        [Required(ErrorMessage = "Please, provide contact number")]
         public string? Contact { get; set; }
 
 

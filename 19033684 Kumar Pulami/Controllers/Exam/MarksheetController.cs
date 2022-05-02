@@ -139,6 +139,8 @@ namespace _19033684_Kumar_Pulami.Controllers.Exam
             MarksheetSubjectViewModel subjectDetail;
             List<MarksheetSubjectViewModel> subjectList = new List<MarksheetSubjectViewModel>();
 
+            //Getting student Details
+
             using (SqlConnection connection = new SqlConnection(DatabaseAccess.GetConnection()))
             {
                 if (connection.State == ConnectionState.Closed)
@@ -171,6 +173,7 @@ namespace _19033684_Kumar_Pulami.Controllers.Exam
                 marksheetDetails.Grade = rowData[7].ToString();
             }
 
+            // Getting each subjeect subjects and their grade ppints
             using (SqlConnection connection = new SqlConnection(DatabaseAccess.GetConnection()))
             {
                 if (connection.State == ConnectionState.Closed)
@@ -209,6 +212,8 @@ namespace _19033684_Kumar_Pulami.Controllers.Exam
                 }
             }
 
+
+            // Calculating over all grade and percnetage.
             float? GPA = 0F;
             float? totalMarks = 0F;
             float totalObtainedMark = 0F;

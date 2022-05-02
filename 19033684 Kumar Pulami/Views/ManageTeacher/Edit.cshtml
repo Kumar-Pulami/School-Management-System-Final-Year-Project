@@ -53,7 +53,16 @@
             <div class="col d-flex justify-content-between">
                 <div class="col form-group form-check-inline">
                     <label asp-for="Gender" class="control-label"></label>
-                    <input asp-for="Gender" class="form-control" />
+                    <div class="col">
+                        <label class="radio-inline">
+                            @Html.RadioButtonFor(model => model.Gender, "Male", new {@value = "gender"})
+                            Male
+                        </label>
+                        <label class="radio-inline">
+                            @Html.RadioButtonFor(model => model.Gender, "Female", new {@value = "gender"})
+                            Female
+                        </label>
+                    </div>
                     <span asp-validation-for="Gender" class="text-danger"></span>
                 </div>
                 <br>
