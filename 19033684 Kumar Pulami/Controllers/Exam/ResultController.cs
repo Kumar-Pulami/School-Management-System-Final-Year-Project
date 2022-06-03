@@ -251,11 +251,11 @@ namespace _19033684_Kumar_Pulami.Controllers.Exam
             }
 
             var orderPassedStd = from std in passed
-                          orderby std.Percentage
+                          orderby std.Percentage descending
                           select std;
 
             var orderFailedStd = from std in failed
-                                 orderby std.Percentage
+                                 orderby std.Percentage descending
                                  select std;
 
             int rank = 1;
@@ -263,10 +263,13 @@ namespace _19033684_Kumar_Pulami.Controllers.Exam
             {
                 std.Rank = rank.ToString();
                 studentResultList.Add(std);
+                rank++;
+
             }foreach (ResultStudentMarksDetailViewModel std in orderFailedStd)
             {
                 std.Rank = rank.ToString();
                 studentResultList.Add(std);
+                rank++;
             }
             List<ResultSubjectName> subjectNamesList = new List<ResultSubjectName>();
             ResultSubjectName subjectName;
@@ -310,7 +313,7 @@ namespace _19033684_Kumar_Pulami.Controllers.Exam
                 model.StudentName = GetStudentName(student.StudentID);
                 model.TotalMarks = totalMarks.ToString();
                 model.TotalObtainedMarks = totalObtainedMark.ToString();
-                model.GPA = (GPA / student.MarksDetails.Count()).ToString();
+                model.GPA = Math.Round((decimal)(GPA / student.MarksDetails.Count()), 1).ToString();
                 model.Percentage = ((totalObtainedMark * 100) / totalMarks).ToString();
                 model.SubjectMarks = resultSubjectMarks;
                 model.Result = "";

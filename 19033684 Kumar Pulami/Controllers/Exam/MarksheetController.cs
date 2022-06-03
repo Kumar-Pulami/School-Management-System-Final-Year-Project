@@ -227,7 +227,7 @@ namespace _19033684_Kumar_Pulami.Controllers.Exam
             }
             marksheetDetails.TotalMarks = totalMarks;
             marksheetDetails.TotalObtainedMarks = totalObtainedMark;
-            marksheetDetails.GPA = GPA / subjectList.Count();
+            marksheetDetails.GPA = (float?) Math.Round((decimal)(GPA / subjectList.Count()), 1);
             marksheetDetails.Precentage = (totalObtainedMark * 100) / totalMarks;
             marksheetDetails.SubjectMarks = subjectList;
             marksheetDetails.TerminalList = GetTerminalList(inputDetails.StudentID);

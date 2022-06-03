@@ -82,7 +82,7 @@ namespace _19033684_Kumar_Pulami.Controllers.Class
 
 
         [HttpGet]
-        public IActionResult Delete(int batch, int grade, int TermianlID)
+        public IActionResult Delete(int batch, int grade, int TerminalID)
         {
             using (SqlConnection connection = new SqlConnection(DatabaseAccess.GetConnection()))
             {
@@ -94,7 +94,7 @@ namespace _19033684_Kumar_Pulami.Controllers.Class
                 {
                     command.Parameters.AddWithValue("@batch", batch);
                     command.Parameters.AddWithValue("@grade", grade);
-                    command.Parameters.AddWithValue("@terminal", TermianlID);
+                    command.Parameters.AddWithValue("@terminal", TerminalID);
                     command.ExecuteNonQuery();
                 }
             }
@@ -109,7 +109,7 @@ namespace _19033684_Kumar_Pulami.Controllers.Class
                 {
                     command.Parameters.AddWithValue("@batch", batch);
                     command.Parameters.AddWithValue("@grade", grade);
-                    command.Parameters.AddWithValue("@terminal", TermianlID);
+                    command.Parameters.AddWithValue("@terminal", TerminalID);
                     command.ExecuteNonQuery();
                 }
             }
