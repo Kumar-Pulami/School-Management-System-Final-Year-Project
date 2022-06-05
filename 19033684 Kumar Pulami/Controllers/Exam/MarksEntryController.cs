@@ -50,7 +50,7 @@ namespace _19033684_Kumar_Pulami.Controllers.Exam
         }
 
         [HttpPost]
-        public IActionResult MarksEntry(PostBackMarksEntryViewModel value)
+        public JsonResult MarksEntry(PostBackMarksEntryViewModel value)
         {            
             MarksEntrySearchViewModel searchcontent;
             searchcontent = new MarksEntrySearchViewModel();
@@ -69,7 +69,7 @@ namespace _19033684_Kumar_Pulami.Controllers.Exam
                     if (String.IsNullOrEmpty(subject.Mark))
                     {
                         TempData["Error"] = "Please, Fill up all the marks.";
-                        return RedirectToAction("MarksEntry", value);
+                        return Json(new { redirect = "Please, Fill up all the marks." });
                     }
                     else
                     {
@@ -123,13 +123,13 @@ namespace _19033684_Kumar_Pulami.Controllers.Exam
                         catch (FormatException ex)
                         {
                             TempData["Error"] = "Please, Enter Marks in Number Format.";
-                            return RedirectToAction("MarksEntry", value);
+                            return Json(new { redirect = "Please, Enter Marks in Number Format."});
                         }
                     }
                 }
             }
             TempData["SuccessMessage"] = "Marks Updated Successfully.";
-            return View("Index");
+            return Json( new { redirect = "Index" });
         }
 
         

@@ -28,7 +28,25 @@
             list.push(std);
         });
         model["StudentList"] = list;
-        $.post("/MarksEntry/MarksEntry", model);
+
+        $.ajax({
+            type: "POST",
+            url: "/MarksEntry/MarksEntry",
+            data: model,
+            success: function (response) {
+                if (response.redirect == "Index") {
+                    window.location.href = response.redirect;
+                } else {
+                    window.location.reload();
+                }                
+            },
+            failure: function (response) {
+                window.location.href = "Index";
+            },
+            error: function (response) {
+                window.location.href = "Index";
+            },
+        });
     });
 
     $("#Batch").change(function () {
